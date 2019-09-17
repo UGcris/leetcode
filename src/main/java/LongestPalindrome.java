@@ -79,24 +79,39 @@ public class LongestPalindrome {
         if(s.length()<=1){
             return s;
         }
-        String result="";
+        String result=s.charAt(0)+"";
+        String temp="";
+        int tempIndex=0;
+        int tempIndex2=0;
         String reversalStr=new StringBuffer(s).reverse().toString();
-        for(int i=0;i<s.length();i++){
-            if(s.charAt(i)==reversalStr.charAt(i)){
-                result+=s.charAt(i);
-            }else{
-                result="";
+        for(int i=0;i<s.length()&&s.length()-i>result.length();i++){
+            temp="";
+            tempIndex=i;
+            tempIndex2=0;
+            for(int j=0;j<reversalStr.length()-i;j++){
+                if(s.charAt(tempIndex)==reversalStr.charAt(j)){
+                    temp+=s.charAt(tempIndex);
+                    tempIndex2=tempIndex==i?j:tempIndex2;
+                    tempIndex++;
+                }else if(temp.length()>0){
+                    if(tempIndex+j==s.length()){
+                        result=result.length()>=temp.length()?result:temp;
+                    }
+                    tempIndex=i;
+                    j=tempIndex2;
+                    temp="";
+                }
+
             }
+            result=result.length()>=temp.length()?result:temp;
         }
-        if(result.length()==0){
-            result=s.charAt(0)+"";
-        }
+        result=result.length()>=temp.length()?result:temp;
         return result;
     }
     public static void main(String[] args) {
         LongestPalindrome longestPalindrome=new LongestPalindrome();
         System.out.println(System.currentTimeMillis());
-        System.out.println(longestPalindrome.longestPalindrome("cbcdcbedcbc"));
+        System.out.println(longestPalindrome.longestPalindrome("aacdefcaa"));
         System.out.println(System.currentTimeMillis());
     }
 }
