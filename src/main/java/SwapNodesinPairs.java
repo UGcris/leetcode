@@ -17,25 +17,16 @@
  */
 
 public class SwapNodesinPairs {
+    /**
+     * 重点递归，
+     * @param head
+     * @return
+     */
     public ListNode swapPairs(ListNode head) {
-        if(null==head) return head;
-        if(null==head.next) return head;
-        ListNode pre=head.next;
-        ListNode result=pre;
-        pre.next=head;
-        ListNode temp=null;
-        while (null!=pre){
-            ListNode child=pre.next;
-            if(null!=child){
-                temp=child.next;
-                pre.next=child;
-                pre.next.next=head;
-                head=temp;
-            }else {
-                pre.next=head;
-                head=child;
-            }
-        }
-        return result.next;
+        if(null==head||null==head.next) return head;
+        ListNode next = head.next;
+        head.next = swapPairs(next.next);
+        next.next = head;
+        return next;
     }
 }
