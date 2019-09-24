@@ -63,9 +63,4 @@ public class RemoveNthNodeFromEndOfList {
             result=result.next;
         }
     }
-    static class ListNode{
-        int val;
-        ListNode next;
-        ListNode(int x) { val = x; }
-    }
 }
