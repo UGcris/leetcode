@@ -86,7 +86,7 @@ public class DecodeWays {
      * @return
      */
     public int numDecodings2(String s) {
-        if('0'==s.charAt(1)) return 0;
+        if('0'==s.charAt(0)) return 0;
         int pre=1,curr=1;//dp[-1] = dp[0] = 1
         for (int i = 1; i < s.length(); i++) {
             int temp=curr;
