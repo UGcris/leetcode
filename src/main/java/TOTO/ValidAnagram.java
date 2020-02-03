@@ -26,6 +26,12 @@ import java.util.Arrays;
  * @date 2020/2/3
  **/
 public class ValidAnagram {
+    /**
+     * 排序后对比
+     * @param s
+     * @param t
+     * @return
+     */
     public boolean isAnagram(String s, String t) {
         char[] ch1=s.toCharArray();
         char[] ch2=t.toCharArray();
@@ -33,4 +39,27 @@ public class ValidAnagram {
         Arrays.sort(ch2);
         return String.valueOf(ch1).equals(String.valueOf(ch2));
     }
+
+    /**
+     * 数组记录字母出现次数，比较
+     * @param s
+     * @param t
+     * @return
+     */
+    public boolean isAnagram2(String s, String t) {
+        if(s.length()!=t.length()) return false;
+        if(s.length()==0) return true;
+        int[] arr=new int[26];
+        for (char ch:s.toCharArray()) {
+            arr[ch-'a']++;
+        }
+        for (char ch:t.toCharArray()) {
+            arr[ch-'a']--;
+        }
+        for (int count:arr) {
+            if(count!=0) return false;
+        }
+        return true;
+    }
+
 }
