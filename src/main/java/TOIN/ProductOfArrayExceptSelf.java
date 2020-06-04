@@ -52,4 +52,28 @@ public class ProductOfArrayExceptSelf {
 
         return results;
     }
+
+    /**
+     * 重rewrite
+     * @param nums
+     * @return
+     */
+    public int[] productExceptSelf3(int[] nums) {
+        int length = nums.length;
+        int[] ans = new int[length];
+        if (length > 0) {
+            int[] left = new int[length + 1];
+            int[] right = new int[length + 1];
+            left[0] = 1;
+            right[length] = 1;
+            for (int i = 0; i < length; i++) {
+                left[i + 1] = left[i] * nums[i];
+                right[length - i - 1] = right[length-i] * nums[length - i - 1];
+            }
+            for (int i = 0; i < length; i++) {
+                ans[i]=left[i]*right[i+1];
+            }
+        }
+        return ans;
+    }
 }
