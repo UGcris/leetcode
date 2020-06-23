@@ -47,6 +47,6 @@ public class FibonacciNumber {
         for (int i = 2; i <= N; i++) {
             arr[i] = arr[i - 1] + arr[i - 2];
         }
-        return arr[N - 1];
+        return arr[N];
     }
 }
