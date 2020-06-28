@@ -48,12 +48,39 @@ public class LargestNumber {
                 }
             }
         }
-        if(nums[0]==0){
+        if (nums[0] == 0) {
             return "0";
         }
         for (int i = 0; i < length; i++) {
             ans.append(nums[i]);
         }
+        return ans.toString();
+    }
+
+    /**
+     * 通过实现Comparator的接口实现比较
+     * 优化运行时间
+     * @param nums
+     * @return
+     */
+    public String largestNumber2(int[] nums) {
+        int length = nums.length;
+        if (length < 1) return "";
+        if (length == 0) return String.valueOf(nums[0]);
+        StringBuffer ans = new StringBuffer();
+        List<String> list = new ArrayList<>();
+        for (int i = 0; i < nums.length; i++) {
+            list.add(String.valueOf(nums[i]));
+        }
+        Collections.sort(list, new Comparator<String>() {
+            @Override
+            public int compare(String o1, String o2) {
+                String str1 = o1 + o2, str2 = o2 + o1;
+                return str2.compareTo(str1);
+            }
+        });
+        list.forEach(str -> ans.append(str));
+        if (ans.charAt(0) == '0') return "0";
         return ans.toString();
     }
 }
