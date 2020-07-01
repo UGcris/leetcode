@@ -55,6 +55,7 @@ public class LargestValuesFromLabels {
 
     /**
      * 贪心
+     *
      * @param values
      * @param labels
      * @param num_wanted
@@ -87,6 +88,7 @@ public class LargestValuesFromLabels {
 
     /**
      * pair 超时
+     *
      * @param values
      * @param labels
      * @param num_wanted
@@ -94,6 +96,7 @@ public class LargestValuesFromLabels {
      * @return
      */
     public int largestValsFromLabels2(int[] values, int[] labels, int num_wanted, int use_limit) {
+        int ans = 0;
         List<Pair<Integer, Integer>> list = new ArrayList<>();
         for (int i = 0; i < values.length; i++) {
             Pair<Integer, Integer> pair = new Pair<>(values[i], labels[i]);
@@ -105,35 +108,25 @@ public class LargestValuesFromLabels {
                 return o2.getKey().compareTo(o1.getKey());
             }
         });
-        find(list, num_wanted, use_limit, 0, 0, new HashMap<>());
+        int[] label_count = new int[20001];
+        for (Pair<Integer, Integer> pair : list) {
+            int value = pair.getKey();
+            int label = pair.getValue();
+            if (label_count[label] < use_limit) {
+                ans += value;
+                if (--num_wanted == 0) {
+                    break;
+                }
+                ++label_count[label];
+            }
+        }
         return ans;
     }
 
-    private void find(List<Pair<Integer, Integer>> list, int num_wanted, int use_limit, int index, int preValue, HashMap<Integer, Integer> map) {
-        ans = Math.max(ans, preValue);
-        if (num_wanted == 0) {
-            return;
-        }
-        int minValue = Integer.MIN_VALUE;
-        for (int i = index; i < list.size(); i++) {
-            int value = list.get(i).getKey();
-            int label = list.get(i).getValue();
-            if (value < minValue) {
-                break;
-            }
-            if (map.getOrDefault(label, 0) >= use_limit) {
-                continue;
-            }
-            map.put(label, map.getOrDefault(label, 0) + 1);
-            find(list, num_wanted - 1, use_limit, i + 1, preValue + value, map);
-            map.put(label, map.get(label) - 1);
-            minValue = value;
-
-        }
-    }
 
     /**
      * 解题
+     *
      * @param values
      * @param labels
      * @param num_wanted
