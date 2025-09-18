@@ -172,6 +172,7 @@ public class PalindromePairs {
         return true;
     }
 
+
     public static void main(String[] args) {
         PalindromePairs palindromePairs=new PalindromePairs();
         String[] strs={"a","b","c","abb","ac","aa"};
